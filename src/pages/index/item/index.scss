@@ -1,0 +1,23 @@
+/*
+ * @Author: czy0729
+ * @Date: 2019-02-27 06:42:48
+ * @Last Modified by: czy0729
+ * @Last Modified time: 2019-03-05 04:54:34
+ */
+@import '@styles/theme.scss';
+
+.home-item {
+  width: 100%;
+  padding: 24px;
+  margin-top: 24px;
+  background: #eee;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.16);
+
+  &--first {
+    margin-top: 0;
+  }
+  &__thumb {
+    background-color: #eee;
+    border-radius: 8px;
+  }
+}

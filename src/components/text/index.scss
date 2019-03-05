@@ -1,0 +1,52 @@
+/*
+ * @Author: czy0729
+ * @Date: 2019-02-27 23:40:09
+ * @Last Modified by: czy0729
+ * @Last Modified time: 2019-03-02 05:22:28
+ */
+@import '@styles/theme.scss';
+
+.c-text {
+  &--plain {
+    color: $color-plain;
+  }
+  &--main {
+    color: $color-main;
+  }
+  &--desc {
+    color: $color-desc;
+  }
+  &--sub {
+    color: $color-sub;
+  }
+  &--10 {
+    @include font-size(10px);
+  }
+  &--12 {
+    @include font-size(12px);
+  }
+  &--13 {
+    @include font-size(13px);
+  }
+  &--14 {
+    @include font-size(14px);
+  }
+  &--15 {
+    @include font-size(15px);
+  }
+  &--16 {
+    @include font-size(16px);
+  }
+  &--18 {
+    @include font-size(18px);
+  }
+  &--20 {
+    @include font-size(20px);
+  }
+  &--22 {
+    @include font-size(22px);
+  }
+  &--24 {
+    @include font-size(24px);
+  }
+}

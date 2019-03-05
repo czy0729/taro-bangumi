@@ -1,0 +1,27 @@
+/*
+ * @Author: czy0729
+ * @Date: 2019-03-02 05:25:03
+ * @Last Modified by: czy0729
+ * @Last Modified time: 2019-03-02 07:27:51
+ */
+@import '@styles/theme.scss';
+
+.c-app-character {
+  &__item {
+    width: 152px;
+    margin-top: 24px;
+    margin-right: 24px;
+
+    &-image {
+      border: 2px solid $color-border;
+      border-radius: 8px;
+      box-shadow: $box-shadow-img;
+    }
+    &-desc {
+      @include lamp-clamp(2);
+    }
+    &-sub {
+      @include lamp-clamp(1);
+    }
+  }
+}

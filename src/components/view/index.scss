@@ -1,0 +1,22 @@
+/*
+ * @Author: czy0729
+ * @Date: 2019-03-04 01:53:33
+ * @Last Modified by: czy0729
+ * @Last Modified time: 2019-03-04 01:56:43
+ */
+@import '@styles/theme';
+
+/**
+ * // NOTE 页面margin优先写top和right
+ */
+.c-view {
+  &--wrap-inner {
+    padding: $space $wind;
+  }
+  &--wrap-inner-no-side {
+    padding: $space 0 $space $wind;
+  }
+  &--wrap-outer {
+    padding: 0 $wind;
+  }
+}

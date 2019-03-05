@@ -1,0 +1,24 @@
+/*
+ * @Author: czy0729
+ * @Date: 2019-02-27 08:16:06
+ * @Last Modified by: czy0729
+ * @Last Modified time: 2019-03-05 01:00:24
+ */
+@import '@styles/theme.scss';
+
+.search-item {
+  width: 208px;
+  margin-right: 24px;
+  margin-bottom: 24px;
+
+  &__thumb {
+    border-radius: 8px;
+    box-shadow: $box-shadow-img;
+  }
+  &__name {
+    margin-top: 16px;
+    @include font-size(13px);
+    color: $color-desc;
+    @include lamp-clamp(2);
+  }
+}

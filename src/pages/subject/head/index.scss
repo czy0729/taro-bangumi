@@ -1,0 +1,16 @@
+/*
+ * @Author: czy0729
+ * @Date: 2019-02-28 05:50:27
+ * @Last Modified by: czy0729
+ * @Last Modified time: 2019-03-04 01:24:30
+ */
+@import '@styles/theme.scss';
+
+.subject-head {
+  padding: 40px $wind;
+
+  &__thumb {
+    border: 2px solid rgba(255, 255, 255, 0.64);
+    border-radius: 16px;
+  }
+}
