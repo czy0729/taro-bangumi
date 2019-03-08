@@ -1,3 +1,23 @@
+@import '@styles/theme.scss';
+
+.p-vh {
+  padding: $space $wind;
+}
+.p-v {
+  padding-top: $space;
+  padding-bottom: $space;
+}
+.p-h {
+  padding-left: $wind;
+  padding-right: $wind;
+}
+.p-l {
+  padding-left: $wind;
+}
+.p-r {
+  padding-right: $wind;
+}
+
 // margin-top
 .mt-xs {
   margin-top: 8px;
@@ -19,8 +39,46 @@
 .ml-sm {
   margin-left: 24px;
 }
+.ml-md {
+  margin-left: 32px;
+}
+
+// margin-right 尽量少用
+.mr-sm {
+  margin-right: 24px;
+}
 
 // text
 .t-c {
   text-align: center;
+}
+
+// flex
+.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.flex-justify-center {
+  justify-content: center;
+}
+.flex-justify-end {
+  justify-content: flex-end;
+}
+.flex-justify-between {
+  justify-content: space-between;
+}
+.flex-align-start {
+  align-items: flex-start;
+}
+.flex-align-end {
+  align-items: flex-end;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-item {
+  flex: 1;
 }

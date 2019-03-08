@@ -1,0 +1,17 @@
+@import '@styles/theme';
+
+.c-div {
+  line-height: 0; // 主要针对微信小程序
+
+  &--wrap {
+    &-inner {
+      padding: $space $wind;
+    }
+    &-inner-no-side {
+      padding: $space 0 $space $wind;
+    }
+    &-outer {
+      padding: 0 $wind;
+    }
+  }
+}

@@ -3,7 +3,7 @@
  * @Author: czy0729
  * @Date: 2019-02-21 20:40:30
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 04:50:17
+ * @Last Modified time: 2019-03-07 00:54:23
  */
 import { observable, computed } from 'mobx'
 import fetch from '@utils/fetch'
@@ -14,12 +14,12 @@ import common, { dev } from './common'
 class User extends common {
   @observable state = {
     userInfo: {
-      access_token: '',
-      expires_in: 0,
-      refresh_token: '',
-      scope: null,
+      access_token: '486828fff084d92c5062661f0c9c86f88e0d8f3c',
+      expires_in: 604800,
       token_type: 'Bearer',
+      scope: null,
       user_id: 456208,
+      refresh_token: '1d57ed8e5f3ab8c20d9687d8be1b7dd77a92b58a',
       _loaded: true
     },
     userCollection: {},
@@ -28,23 +28,9 @@ class User extends common {
 
   // -------------------- get --------------------
   /**
-   * 取是否登录
-   */
-  @computed get isLogin() {
-    return !!this.state.userInfo.access_token
-  }
-
-  /**
-   * 取自己用户Id
-   */
-  @computed get myUserId() {
-    return this.state.userInfo.user_id
-  }
-
-  /**
    * 取自己用户信息
    */
-  @computed get getUserInfo() {
+  getUserInfo() {
     return this.state.userInfo
   }
 
@@ -52,19 +38,33 @@ class User extends common {
    * 取某人的在看收藏
    * @param {*} userId
    */
-  getUserCollection(userId = this.myUserId) {
-    return computed(() => this.state.userCollection[userId] || {}).get()
+  getUserCollection(userId = this.getMyUserId()) {
+    return computed(() => this.state.userCollection[userId] || []).get()
   }
 
   /**
-   * 取某人的观看进度
+   * 取某人的收视进度
    * @param {*} subjectId
    * @param {*} userId
    */
-  getUserProgress(subjectId, userId = this.myUserId) {
+  getUserProgress(subjectId, userId = this.getMyUserId()) {
     return computed(
-      () => this.state.userProgress[`${subjectId}|${userId}`] || {}
+      () => this.state.userProgress[`${userId}|${subjectId}`] || {}
     ).get()
+  }
+
+  /**
+   * 取自己用户Id
+   */
+  getMyUserId() {
+    return this.getUserInfo().user_id
+  }
+
+  /**
+   * 取是否登录
+   */
+  isLogin() {
+    return !!this.getUserInfo().access_token
   }
 
   // -------------------- fetch --------------------
@@ -93,7 +93,7 @@ class User extends common {
    * 获取某人的在看收藏
    * @param {*} userId
    */
-  fetchUserCollection(userId = this.myUserId) {
+  fetchUserCollection(userId = this.getMyUserId()) {
     return this.fetch(
       `${API_USER_COLLECTION(userId)}?cat=watching&ids=243916`,
       ['userCollection', userId]
@@ -101,31 +101,37 @@ class User extends common {
   }
 
   /**
-   * 获取某人的观看进度
+   * 获取某人的收视进度
    * @param {*} subjectId
    * @param {*} userId
    */
-  async fetchUserProgress(subjectId, userId = this.myUserId) {
-    const res = fetch({
+  async fetchUserProgress(subjectId, userId = this.getMyUserId()) {
+    const config = {
       url: API_USER_PROGRESS(userId),
-      payload: {
-        subject_id: subjectId
-      },
+      payload: {},
       retryCb: () => this.fetchUserProgress(subjectId, userId)
-    })
+    }
+    if (subjectId) {
+      config.payload.subject_id = subjectId
+    }
+    const res = fetch(config)
     const data = await res
 
-    // NOTE 当用户没有观看进度, API_USER_PROGRESS接口服务器直接返回非标准格式null
-    // 不入库
+    // NOTE 当用户没有收视进度, API_USER_PROGRESS接口服务器直接返回null
+    // 注意请求单个返回对象, 多个返回数组
     if (data) {
-      const userProgress = {}
+      // 统一结构
+      const _data = Array.isArray(data) ? data : [data]
 
       // 扁平化
-      data.eps.forEach(item => (userProgress[item.id] = item.status.cn_name))
-      this.setState({
-        userProgress: {
-          [`${subjectId}|${userId}`]: userProgress
-        }
+      _data.forEach(item => {
+        const userProgress = {}
+        item.eps.forEach(i => (userProgress[i.id] = i.status.cn_name))
+        this.setState({
+          userProgress: {
+            [`${userId}|${item.subject_id}`]: userProgress
+          }
+        })
       })
     }
     return res

@@ -2,13 +2,13 @@
  * @Author: czy0729
  * @Date: 2019-02-26 01:18:15
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-03 06:04:46
+ * @Last Modified time: 2019-03-06 23:15:04
  */
-import { configure, extendObservable, action, autorun, toJS } from 'mobx'
+import { configure, extendObservable, action, toJS } from 'mobx'
 // import { log } from '@utils'
 import fetch from '@utils/fetch'
 
-configure({ enforceActions: 'observed' })
+// configure({ enforceActions: 'observed' })
 
 class Common {
   /**
@@ -91,13 +91,19 @@ class Common {
 export function dev(key, store) {
   if (process.env.TARO_ENV === 'h5') {
     if (!window.Stores) {
-      window.Stores = {}
+      window.Stores = {
+        toJS: () => {
+          const stores = {}
+          Object.keys(window.Stores).forEach(storeKey => {
+            if (window.Stores[storeKey].toJS) {
+              stores[storeKey] = window.Stores[storeKey].toJS()
+            }
+          })
+          console.log(stores)
+        }
+      }
     }
     window.Stores[key] = store
-
-    autorun(() => {
-      // log('autorun', key, '', toJS(store.state))
-    })
   }
 }
 

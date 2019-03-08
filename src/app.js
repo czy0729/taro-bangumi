@@ -2,12 +2,20 @@
  * @Author: czy0729
  * @Date: 2019-02-21 00:22:40
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 05:14:55
+ * @Last Modified time: 2019-03-07 00:39:18
  */
 import '@tarojs/async-await'
 import Taro, { Component } from '@tarojs/taro'
+import { Provider } from '@tarojs/mobx'
+import { collectionStore, subjectStore, userStore } from '@stores'
 import Home from './pages/search'
 import './app.scss'
+
+const store = {
+  collectionStore,
+  subjectStore,
+  userStore
+}
 
 class App extends Component {
   config = {
@@ -57,7 +65,11 @@ class App extends Component {
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
   render() {
-    return <Home />
+    return (
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    )
   }
 }
 

@@ -1,0 +1,121 @@
+@import '@styles/theme';
+
+.c-flex {
+  &-col {
+    flex: 1;
+    display: block;
+    width: 100%;
+    line-height: 0; // 主要针对微信小程序
+    white-space: nowrap;
+    box-sizing: border-box;
+
+    &-1 {
+      flex: 0 0 8.33333%;
+      max-width: 8.33333%;
+    }
+    &-2 {
+      flex: 0 0 16.66667%;
+      max-width: 16.66667%;
+    }
+    &-3 {
+      flex: 0 0 25%;
+      max-width: 25%;
+    }
+    &-4 {
+      flex: 0 0 33.33333%;
+      max-width: 33.33333%;
+    }
+    &-5 {
+      flex: 0 0 41.66667%;
+      max-width: 41.66667%;
+    }
+    &-6 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+    &-7 {
+      flex: 0 0 58.33333%;
+      max-width: 58.33333%;
+    }
+    &-8 {
+      flex: 0 0 66.66667%;
+      max-width: 66.66667%;
+    }
+    &-9 {
+      flex: 0 0 75%;
+      max-width: 75%;
+    }
+    &-10 {
+      flex: 0 0 83.33333%;
+      max-width: 83.33333%;
+    }
+    &-11 {
+      flex: 0 0 91.66667%;
+      max-width: 91.66667%;
+    }
+    &-12 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    &__offset {
+      &-1 {
+        margin-left: 8.33333%;
+      }
+      &-2 {
+        margin-left: 16.66667%;
+      }
+      &-3 {
+        margin-left: 25%;
+      }
+      &-4 {
+        margin-left: 33.33333%;
+      }
+      &-5 {
+        margin-left: 41.66667%;
+      }
+      &-6 {
+        margin-left: 50%;
+      }
+      &-7 {
+        margin-left: 58.33333%;
+      }
+      &-8 {
+        margin-left: 66.66667%;
+      }
+      &-9 {
+        margin-left: 75%;
+      }
+      &-10 {
+        margin-left: 83.33333%;
+      }
+      &-11 {
+        margin-left: 91.66667%;
+      }
+      &-12 {
+        margin-left: 100%;
+      }
+    }
+
+    // &__align {
+    //   &--top {
+    //     align-self: flex-start;
+    //   }
+    //   &--bottom {
+    //     align-self: flex-end;
+    //   }
+    //   &--center {
+    //     align-self: center;
+    //   }
+    // }
+
+    &--auto {
+      max-width: initial;
+      word-break: keep-all;
+    }
+    // &--wrap {
+    //   white-space: normal;
+    //   word-wrap: break-word;
+    // }
+  }
+}

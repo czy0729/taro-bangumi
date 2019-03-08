@@ -2,32 +2,46 @@
  * @Author: czy0729
  * @Date: 2019-02-28 06:13:18
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 03:57:39
+ * @Last Modified time: 2019-03-08 07:30:27
  */
 import Taro from '@tarojs/taro'
 import { Image } from '@tarojs/components'
+import Component from '@components/component'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Component from '@components/component'
-import { composeStyle } from '@utils/style'
 
-const cls = 'c-image'
+const cls = 'c-img'
 
-export default class _Image extends Component {
+export default class Img extends Component {
   static propTypes = {
+    className: PropTypes.string,
+    styles: PropTypes.object,
     src: PropTypes.string,
     mode: PropTypes.string,
     width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    onClick: PropTypes.func
   }
   static defaultProps = {
-    src: undefined,
+    className: '',
+    styles: null,
+    src: '',
     mode: 'aspectFill',
-    width: undefined,
-    height: undefined
+    width: null,
+    height: null,
+    onClick: Function.prototype
   }
   render() {
-    const { src, mode, width, height, className, style } = this.props
+    const {
+      className,
+      style,
+      styles,
+      src,
+      mode,
+      width,
+      height,
+      onClick
+    } = this.props
     const _style = {
       width: Taro.pxTransform(width),
       height: Taro.pxTransform(height || width)
@@ -37,7 +51,8 @@ export default class _Image extends Component {
         className={classNames(cls, className)}
         src={src}
         mode={mode}
-        style={composeStyle(_style, style)}
+        style={this.composeStyle(_style, styles || style)}
+        onClick={onClick}
       />
     )
   }

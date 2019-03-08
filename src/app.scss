@@ -1,20 +1,13 @@
-/*
- * @Author: czy0729
- * @Date: 2019-02-28 04:22:08
- * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 03:40:55
- */
 @import '@styles/reset.scss';
 @import '@styles/utils.scss';
 
 /*postcss-pxtransform rn eject enable*/
 
-@import './pages/search/index.scss';
-@import './pages/search/list/index.scss';
-@import './pages/search/item/index.scss';
+// 使用BEM, 微信小程序保证所有页面样式都是全局, 就可以愉快使用class去传递样式
+// TODO H5端不需要全局, 待屏蔽
+// @import './components/weapp.scss';
+@import './components/app/weapp.scss';
+@import './pages/index/weapp.scss';
+// @import './pages/search/weapp.scss';
 
 /*postcss-pxtransform rn eject disable*/
-
-// 75 43 53 20 27 36
-// 90 60 75 25 35 50
-// 12 14 14 12 13 14

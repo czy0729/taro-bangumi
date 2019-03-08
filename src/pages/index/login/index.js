@@ -2,10 +2,12 @@
  * @Author: czy0729
  * @Date: 2019-02-27 06:28:54
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 04:49:49
+ * @Last Modified time: 2019-03-08 04:29:32
  */
-import Taro, { Component } from '@tarojs/taro'
-import { Page, Btn, Span } from '@components'
+import Taro from '@tarojs/taro'
+import Component from '@common/component'
+import { Page, Btn, P } from '@components'
+import './index.scss'
 
 const cls = 'home-login'
 
@@ -18,13 +20,13 @@ export default class HomeLogin extends Component {
   render() {
     return (
       <Page className={cls}>
-        <Span type='sub' size={18}>
-          使用Bangumi管理观看进度
-        </Span>
+        <P type='sub' size={18}>
+          管理Bangumi观看进度
+        </P>
         <Btn
           className='mt-sm'
           type='ghost'
-          style={{
+          styles={{
             width: Taro.pxTransform(200)
           }}
           onClick={this.toLogin}

@@ -2,11 +2,11 @@
  * @Author: czy0729
  * @Date: 2019-02-28 05:50:40
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 04:34:35
+ * @Last Modified time: 2019-03-07 01:53:22
  */
 import Taro, { Component } from '@tarojs/taro'
 import { observer } from '@tarojs/mobx'
-import { BlurBg, Flex, FlexItem, Div, Span, Img } from '@components'
+import { BlurBg, Flex, FlexItem, Div, P, Img } from '@components'
 import { ScoreTag } from '@components/app'
 import { subjectStore } from '@stores'
 import './index.scss'
@@ -32,26 +32,26 @@ export default class SubjectHead extends Component {
               direction='column'
               justify='between'
               align='start'
-              style={{
+              styles={{
                 height: Taro.pxTransform(240)
               }}
             >
               <Div>
-                <Div>
-                  <Span type='plain' size={name_cn.length > 16 ? 10 : 12}>
-                    {name}
-                  </Span>
-                </Div>
-                <Div className='mt-xs'>
-                  <Span type='plain' size={name_cn.length > 16 ? 16 : 24}>
-                    {name_cn}
-                  </Span>
-                </Div>
+                <P type='plain' size={name_cn.length > 16 ? 10 : 12}>
+                  {name}
+                </P>
+                <P
+                  className='mt-xs'
+                  type='plain'
+                  size={name_cn.length > 16 ? 16 : 24}
+                >
+                  {name_cn}
+                </P>
               </Div>
               <Flex align='end'>
-                <Span type='main' size={24} lineHeight={24}>
+                <P type='main' size={24} lineHeight={24}>
                   {rating.score}
-                </Span>
+                </P>
                 {rating.score !== undefined && (
                   <ScoreTag className='ml-sm' score={rating.score} />
                 )}

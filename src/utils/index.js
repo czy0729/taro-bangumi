@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-21 20:36:42
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-03 06:32:12
+ * @Last Modified time: 2019-03-06 06:46:49
  */
 import Taro from '@tarojs/taro'
 
@@ -334,6 +334,25 @@ export function log(type, key, value, ...other) {
     res.push('|', other)
   }
   console.log(...res)
+}
+
+/**
+ * @version 190306 1.0
+ * @param {*} key
+ */
+export function getStorage(key) {
+  return Taro.getStorage({ key })
+    .then(res => res.data)
+    .catch(() => '')
+}
+
+/**
+ * @version 190306 1.0
+ * @param {*} key
+ * @param {*} data
+ */
+export function updateStorage(key, data = '') {
+  return Taro.setStorage({ key, data })
 }
 
 if (process.env.TARO_ENV === 'h5') {

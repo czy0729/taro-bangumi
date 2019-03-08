@@ -2,9 +2,10 @@
  * @Author: czy0729
  * @Date: 2019-02-26 02:16:45
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-03 06:58:53
+ * @Last Modified time: 2019-03-07 00:54:17
  */
 import Taro from '@tarojs/taro'
+import { userStore } from '@stores'
 import { APP_ID } from '@constants'
 import { urlStringify, sleep, log } from './index'
 
@@ -24,8 +25,7 @@ const STATUS_NOT_MODIFIED = 304
  */
 const retryCount = {}
 export default function fetch({ url, payload = {}, method = 'GET', retryCb }) {
-  const token_type = 'Bearer'
-  const access_token = '4e930ad659c012eea50e1c7b5873e2bad596725e'
+  const { token_type, access_token } = userStore.getUserInfo()
   const header = {
     Authorization: `${token_type} ${access_token}`
   }
@@ -86,5 +86,5 @@ export async function queue(fetchs = []) {
     f4 = Function.prototype
   ] = fetchs
   await Promise.all([f1(), f2()])
-  await Promise.all([f3(), f4()])
+  return Promise.all([f3(), f4()])
 }

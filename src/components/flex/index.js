@@ -2,14 +2,14 @@
  * @Author: czy0729
  * @Date: 2019-03-04 05:28:09
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 03:08:28
+ * @Last Modified time: 2019-03-08 00:56:50
  */
 import Taro from '@tarojs/taro'
+import { View } from '@tarojs/components'
+import Component from '@components/component'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Component from '@components/component'
-import View from '@components/view'
-import './index.scss'
+// import './index.scss'
 
 const cls = 'c-flex'
 
@@ -23,16 +23,20 @@ export default class Flex extends Component {
     ]),
     wrap: PropTypes.oneOf(['wrap', 'nowrap']),
     justify: PropTypes.oneOf(['start', 'center', 'end', 'between', 'around']),
-    align: PropTypes.oneOf(['start', 'center', 'end', 'stretch', 'baseline'])
+    align: PropTypes.oneOf(['start', 'center', 'end', 'stretch', 'baseline']),
+    className: PropTypes.string,
+    styles: PropTypes.object
   }
   static defaultProps = {
     direction: 'row',
     wrap: 'nowrap',
     justify: 'start',
-    align: 'center'
+    align: 'center',
+    className: '',
+    styles: null
   }
   render() {
-    const { direction, wrap, justify, align, className, style } = this.props
+    const { direction, wrap, justify, align, className, styles } = this.props
     return (
       <View
         className={classNames(
@@ -45,7 +49,7 @@ export default class Flex extends Component {
           },
           className
         )}
-        style={style}
+        style={styles}
       >
         {this.props.children}
       </View>

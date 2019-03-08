@@ -1,15 +1,9 @@
-/*
- * @Author: czy0729
- * @Date: 2019-03-03 00:23:03
- * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-04 02:17:26
- */
 @import '@styles/theme';
 
 .c-app-eps {
   &__btn {
-    margin-right: 24px;
-    margin-bottom: 24px;
+    margin-right: 20px;
+    margin-bottom: 20px;
 
     &--side {
       margin-right: 0;
@@ -18,8 +12,8 @@
   &__sp {
     width: 64px;
     height: 64px;
-    margin-right: 24px;
-    margin-bottom: 24px;
+    margin-right: 20px;
+    margin-bottom: 20px;
     @include border(left, 4px, solid, $color-sub);
   }
 }

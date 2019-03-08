@@ -2,20 +2,26 @@
  * @Author: czy0729
  * @Date: 2019-03-03 00:19:51
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 04:41:00
+ * @Last Modified time: 2019-03-08 07:15:25
  */
-import Taro from '@tarojs/taro'
 import classNames from 'classnames'
-import Component from '@components/component'
-import { Flex, Btn, Span } from '@components'
+import Taro from '@tarojs/taro'
+import { View } from '@tarojs/components'
+import Component from '@common/component'
+import { Btn, P } from '@components'
 import { pad } from '@utils'
 import './index.scss'
 
 const cls = 'c-app-eps'
 
 export default class AppEps extends Component {
+  static defaultProps = {
+    className: '',
+    items: [],
+    userProgress: {}
+  }
   getType = ({ id, status }) => {
-    const { userProgress } = this.props
+    const { userProgress = {} } = this.props
     switch (userProgress[id]) {
       case '想看':
         return 'main'
@@ -42,12 +48,14 @@ export default class AppEps extends Component {
     items.forEach(item => {
       item.type === 1 ? itemsSp.push(item) : itemsNormal.push(item)
     })
+
     return (
-      <Flex
-        className={classNames(cls, className)}
-        wrap='wrap'
-        align='start'
-        justify='start'
+      <View
+        className={classNames(
+          cls,
+          'flex flex-wrap',
+          className
+        )}
         style={style}
       >
         {itemsNormal.map(item => (
@@ -62,11 +70,14 @@ export default class AppEps extends Component {
           </Btn>
         ))}
         {!!itemsSp.length && (
-          <Flex className={`${cls}__sp`} justify='center'>
-            <Span type='sub' size={12}>
+          <View
+            className={`${cls}__sp flex flex-justify-center`}
+            justify='center'
+          >
+            <P type='sub' size={12}>
               SP
-            </Span>
-          </Flex>
+            </P>
+          </View>
         )}
         {itemsSp.map(item => (
           <Btn
@@ -79,7 +90,7 @@ export default class AppEps extends Component {
             {pad(item.sort)}
           </Btn>
         ))}
-      </Flex>
+      </View>
     )
   }
 }

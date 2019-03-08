@@ -1,0 +1,12 @@
+@import '@styles/theme';
+
+.c-progress-bar {
+  height: 6px;
+  background: rgb(214, 240, 244);
+
+  &__bar {
+    height: 6px;
+    background: $color-primary;
+    @include eject(transition, width 0.3s);
+  }
+}

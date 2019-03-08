@@ -2,49 +2,166 @@
  * @Author: czy0729
  * @Date: 2019-02-27 06:42:51
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 04:54:50
+ * @Last Modified time: 2019-03-08 04:29:25
  */
-import Taro, { Component } from '@tarojs/taro'
-import { observer } from '@tarojs/mobx'
-import classNames from 'classnames'
-import { Div, Span, Img, Flex, FlexItem } from '@components'
+import Taro from '@tarojs/taro'
+import { inject, observer } from '@tarojs/mobx'
+import { View } from '@tarojs/components'
+import Component from '@common/component'
+import { BlurBg, P, Img, Ico, ProgressBar } from '@components'
+import { Eps } from '@components/app'
+import { getStorage, updateStorage, jump } from '@utils'
 import './index.scss'
 
 const cls = 'home-item'
+const initSubject = { images: {}, collection: {}, eps_count: 0 }
 
+@inject('userStore', 'subjectStore')
 @observer
 export default class HomeItem extends Component {
+  state = {
+    expand: false
+  }
+  async componentWillMount() {
+    const { subjectId } = this.props
+    const state = await getStorage(`${cls}|${subjectId}|state`)
+    if (state) {
+      this.setState(state)
+    }
+  }
+  onClick = () => {
+    const { subjectId } = this.props
+    jump({
+      url: '/pages/subject/index',
+      payload: {
+        subjectId
+      }
+    })
+  }
+  toggleExpand = () => {
+    const { subjectId } = this.props
+    const { expand } = this.state
+    this.setState(
+      {
+        expand: !expand
+      },
+      () => {
+        updateStorage(`${cls}|${subjectId}|state`, this.state)
+      }
+    )
+  }
+  showModal = () => {}
+  watchedNextEp = () => {}
+  get eps() {
+    const { subjectStore, subjectId } = this.props
+    const { eps = [] } = subjectStore.getSubjectEp(subjectId)
+    return eps
+  }
+  get userProgress() {
+    const { userStore, subjectId } = this.props
+    return userStore.getUserProgress(subjectId)
+  }
+  get isToday() {
+    return this.eps.findIndex(item => item.status === 'Today') !== -1
+  }
+  get percent() {
+    const { subject = initSubject } = this.props
+    if (!subject.eps_count || !this.eps.length) {
+      return 0
+    }
+
+    // 排除SP章节
+    let watchedCount = 0
+    this.eps
+      .filter(item => item.type === 0)
+      .forEach(item => {
+        if (this.userProgress[item.id] === '看过') {
+          watchedCount += 1
+        }
+      })
+    return (watchedCount / subject.eps_count) * 100
+  }
+  get nextCheckEp() {
+    const index = this.eps
+      .filter(item => item.type === 0)
+      .findIndex(item => this.userProgress[item.id] !== '看过')
+    if (index === -1) {
+      return
+    }
+    return this.eps[index].sort
+  }
   render() {
-    const {
-      subjectId,
-      subject = { images: {}, collection: {} },
-      index
-    } = this.props
+    const { subject = initSubject, epStatus = '-' } = this.props
+    const { expand } = this.state
     return (
-      <Div
-        key={subjectId}
-        className={classNames(cls, {
-          [`${cls}--first`]: index === 0
-        })}
-      >
-        <Flex align='start'>
-          <Img
-            className={`${cls}__thumb`}
-            width={160}
-            src={subject.images.medium}
-          />
-          <FlexItem>
-            <Div>
-              <Span size={18}>{subject.name_cn || subject.name}</Span>
-            </Div>
-            <Div>
-              <Span type='desc' size={14}>
-                {subject.collection.doing}人在看
-              </Span>
-            </Div>
-          </FlexItem>
-        </Flex>
-      </Div>
+      <BlurBg className={cls} theme='xlight' src={subject.images.medium}>
+        <View className='flex flex-align-start p-v p-l'>
+          <View>
+            <Img
+              className={`${cls}__thumb`}
+              width={160}
+              src={subject.images.medium}
+              onClick={this.onClick}
+            />
+          </View>
+          <View className='flex-item p-l'>
+            <View className='flex flex-align-start p-r'>
+              <View className='flex-item'>
+                <P size={18}>{subject.name_cn || subject.name}</P>
+                <P className='mt-xs' type='sub' size={12}>
+                  {subject.collection.doing} 人在看
+                </P>
+              </View>
+              {this.isToday && (
+                <P type='success' size={12} lineHeight={18}>
+                  放送中
+                </P>
+              )}
+            </View>
+            {expand && (
+              <Eps
+                className='mt-md'
+                items={this.eps}
+                userProgress={this.userProgress}
+              />
+            )}
+            <View className='flex mt-md'>
+              <View className='flex-item'>
+                {!expand && (
+                  <View className='flex flex-align-end'>
+                    <P type='primary' size={22} lineHeight={1}>
+                      {epStatus}
+                    </P>
+                    <P className='ml-xs' type='sub' size={12}>
+                      / {subject.eps_count || '-'}
+                    </P>
+                  </View>
+                )}
+              </View>
+              <View className='flex'>
+                <View className={`${cls}__btn`} onClick={this.toggleExpand}>
+                  <Ico type={expand ? 'expand-active' : 'expand'} />
+                </View>
+                <View className={`${cls}__btn`} onClick={this.showModal}>
+                  <Ico type='favor' />
+                </View>
+                {this.nextCheckEp && (
+                  <View
+                    className={`${cls}__btn flex`}
+                    onClick={this.watchedNextEp}
+                  >
+                    <Ico type='check' />
+                    <P className='ml-xs' type='sub' size={12} lineHeight={1}>
+                      EP.{this.nextCheckEp || '-'}
+                    </P>
+                  </View>
+                )}
+              </View>
+            </View>
+          </View>
+        </View>
+        <ProgressBar percent={this.percent} />
+      </BlurBg>
     )
   }
 }

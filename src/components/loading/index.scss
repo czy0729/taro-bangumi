@@ -1,0 +1,45 @@
+@import '@styles/theme.scss';
+
+.c-loading {
+  @include full();
+  flex-direction: row;
+  background: $color-bg;
+
+  /*postcss-pxtransform rn eject enable*/
+  @keyframes float {
+    0% {
+      height: 20PX;
+    }
+    50% {
+      height: 20PX;
+    }
+    75% {
+      height: 40PX;
+    }
+    100% {
+      height: 20PX;
+    }
+  }
+  &__line {
+    width: 6PX;
+    height: 20PX;
+    margin: 0 2PX;
+    background: #121212;
+    border-radius: 8PX;
+    animation: float 1.6s ease-in-out infinite;
+
+    &--2 {
+      animation-delay: 0.1s;
+    }
+    &--3 {
+      animation-delay: 0.2s;
+    }
+    &--4 {
+      animation-delay: 0.3s;
+    }
+    &--5 {
+      animation-delay: 0.4s;
+    }
+  }
+  /*postcss-pxtransform rn eject disable*/
+}

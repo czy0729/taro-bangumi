@@ -2,12 +2,12 @@
  * @Author: czy0729
  * @Date: 2019-03-01 03:12:09
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 04:37:57
+ * @Last Modified time: 2019-03-07 01:53:47
  */
 import Taro, { Component } from '@tarojs/taro'
 import { observer } from '@tarojs/mobx'
 import classNames from 'classnames'
-import { Div, Span, Flex, FlexItem } from '@components'
+import { Div, P, Flex, FlexItem } from '@components'
 import { subjectStore } from '@stores'
 import './index.scss'
 
@@ -46,7 +46,7 @@ export default class SubjectRanting extends Component {
     const { rating = initialRating, rank } = subjectStore.getSubject(subjectId)
     return (
       <Div className={cls} wrap='inner'>
-        <Span size={24}>评分分布</Span>
+        <P size={24}>评分分布</P>
         <Flex className='mt-md'>
           {Object.keys(rating.count)
             .reverse()
@@ -60,38 +60,37 @@ export default class SubjectRanting extends Component {
                 <Flex className={`${cls}__item`} align='end'>
                   <Div
                     className={`${cls}__item-fill`}
-                    style={{
+                    styles={{
                       height: this.getHeight(rating.total, rating.count[item])
                     }}
                   />
                 </Flex>
-                <Div className='mt-xs t-c'>
-                  <Span
-                    type='desc'
-                    size={10}
-                    style={{
-                      textAlign: 'center'
-                    }}
-                  >
-                    {item}
-                  </Span>
-                </Div>
+                <P
+                  className='mt-xs t-c'
+                  type='desc'
+                  size={10}
+                  styles={{
+                    textAlign: 'center'
+                  }}
+                >
+                  {item}
+                </P>
               </FlexItem>
             ))}
         </Flex>
         <Flex className='mt-sm'>
-          <Span type='main' size={14}>
+          <P type='main' size={14}>
             {rating.score}
-          </Span>
-          <Span className='ml-xs' type='desc' size={14}>
+          </P>
+          <P className='ml-xs' type='desc' size={14}>
             / {rating.total} votes
-          </Span>
-          <Span className='ml-xs' type='desc' size={14}>
+          </P>
+          <P className='ml-xs' type='desc' size={14}>
             / Ranked:
-          </Span>
-          <Span className='ml-xs' type='main' size={14}>
+          </P>
+          <P className='ml-xs' type='main' size={14}>
             #{rank}
-          </Span>
+          </P>
         </Flex>
       </Div>
     )

@@ -2,29 +2,32 @@
  * @Author: czy0729
  * @Date: 2019-02-22 04:24:44
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 04:35:45
+ * @Last Modified time: 2019-03-08 07:28:39
  */
-import Taro from '@tarojs/taro'
-import { Button } from '@tarojs/components'
 import classNames from 'classnames'
+import Taro from '@tarojs/taro'
+import { Button, Text } from '@tarojs/components'
 import Component from '@components/component'
-import Text from '@components/text'
 import './index.scss'
 
-const cls = 'c-button'
+const cls = 'c-btn'
 
-export default class _Button extends Component {
+export default class Btn extends Component {
   static defaultProps = {
+    className: '',
+    styles: null,
     type: 'plain',
-    size: undefined,
+    size: '',
+    shadow: false,
     loading: false,
     disabled: false,
-    onClick: () => {}
+    onClick: Function.prototype
   }
   render() {
     const {
       className,
       style,
+      styles,
       type,
       size,
       shadow,
@@ -33,19 +36,13 @@ export default class _Button extends Component {
       onClick
     } = this.props
 
-    // NOTE Taro提供的Button带有paddingHorizontal而且不能通过padding重置
-    let _style
-    if (process.env.TARO_ENV === 'rn') {
-      _style = {
-        paddingHorizontal: 0
-      }
-    }
-
     return (
       <Button
         className={classNames(
           cls,
           {
+            // NOTE Taro提供的Button带有paddingHorizontal而且不能通过padding重置
+            [`${cls}--rn`]: process.env.TARO_ENV === 'rn',
             [`${cls}--${type}`]: type,
             [`${cls}--${size}`]: size,
             [`${cls}--shadow`]: shadow
@@ -54,7 +51,7 @@ export default class _Button extends Component {
         )}
         loading={loading}
         disabled={disabled}
-        style={this.composeStyle(_style, style)}
+        style={styles || style}
         onClick={onClick}
       >
         <Text

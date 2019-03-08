@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-23 05:28:47
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 05:05:11
+ * @Last Modified time: 2019-03-06 08:41:09
  */
 import Taro, { Component } from '@tarojs/taro'
 import { Page, Img, Btn } from '@components'
@@ -19,7 +19,7 @@ export default class LoginStage extends Component {
         <Btn
           className='mt-md'
           type='main'
-          style={{
+          styles={{
             width: Taro.pxTransform(400),
           }}
           onClick={onLogin}
@@ -29,7 +29,7 @@ export default class LoginStage extends Component {
         <Btn
           className='mt-sm'
           type='plain'
-          style={{
+          styles={{
             width: Taro.pxTransform(400),
           }}
           onClick={onTour}
