@@ -2,55 +2,56 @@
  * @Author: czy0729
  * @Date: 2019-03-02 04:38:01
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-07 01:51:35
+ * @Last Modified time: 2019-03-09 17:04:23
  */
-import Taro from '@tarojs/taro'
 import classNames from 'classnames'
+import Taro from '@tarojs/taro'
+import { View } from '@tarojs/components'
 import Component from '@components/component'
-import { Div, P, Flex, Img } from '@components'
+import { P, Img } from '@components'
 import './index.scss'
 
 const cls = 'c-app-character'
 
 export default class AppCharacter extends Component {
   static defaultProps = {
+    className: '',
     title: null,
-    items: [],
-    className: ''
+    items: []
   }
   render() {
-    const { title, items, className } = this.props
+    const { className, style, title, items } = this.props
     return (
-      <Div className={classNames(cls, className)} wrap='inner-no-side'>
-        <P size={24}>{title}</P>
-        <Flex wrap='wrap' align='start'>
+      <View className={classNames(cls, 'p-v p-l', className)} style={style}>
+        <P size={24} text={title} />
+        <View className='flex flex-wrap flex-align-start'>
           {items.map(item => (
-            <Div key={item.id || item.name} className={`${cls}__item`}>
-              <Img
-                className={`${cls}__item-image`}
-                width={152}
-                src={item.image}
-              />
+            <View key={item.id || item.name} className={`${cls}__item`}>
+              <View className={`${cls}__item-shadow`}>
+                <Img
+                  className={`${cls}__item-image`}
+                  width={152}
+                  src={item.image}
+                />
+              </View>
               <P
                 className={`${cls}__item-desc mt-xsm`}
                 type='desc'
                 size={14}
                 numberOfLines={2}
-              >
-                {item.name}
-              </P>
+                text={item.name}
+              />
               <P
                 className={`${cls}__item-sub mt-xs`}
                 type='sub'
                 size={12}
                 numberOfLines={1}
-              >
-                {item.desc}
-              </P>
-            </Div>
+                text={item.desc}
+              />
+            </View>
           ))}
-        </Flex>
-      </Div>
+        </View>
+      </View>
     )
   }
 }

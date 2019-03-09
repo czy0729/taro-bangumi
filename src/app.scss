@@ -5,9 +5,10 @@
 
 // 使用BEM, 微信小程序保证所有页面样式都是全局, 就可以愉快使用class去传递样式
 // TODO H5端不需要全局, 待屏蔽
-// @import './components/weapp.scss';
 @import './components/app/weapp.scss';
 @import './pages/index/weapp.scss';
-// @import './pages/search/weapp.scss';
+@import './pages/login/weapp.scss';
+@import './pages/search/weapp.scss';
+@import './pages/subject/weapp.scss';
 
 /*postcss-pxtransform rn eject disable*/

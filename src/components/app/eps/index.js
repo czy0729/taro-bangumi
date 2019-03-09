@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-03-03 00:19:51
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-08 07:15:25
+ * @Last Modified time: 2019-03-09 17:04:54
  */
 import classNames from 'classnames'
 import Taro from '@tarojs/taro'
@@ -51,11 +51,7 @@ export default class AppEps extends Component {
 
     return (
       <View
-        className={classNames(
-          cls,
-          'flex flex-wrap',
-          className
-        )}
+        className={classNames(cls, 'flex flex-wrap', className)}
         style={style}
       >
         {itemsNormal.map(item => (
@@ -74,9 +70,7 @@ export default class AppEps extends Component {
             className={`${cls}__sp flex flex-justify-center`}
             justify='center'
           >
-            <P type='sub' size={12}>
-              SP
-            </P>
+            <P type='sub' size={12} text='SP' />
           </View>
         )}
         {itemsSp.map(item => (

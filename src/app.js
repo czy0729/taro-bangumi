@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-21 00:22:40
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-07 00:39:18
+ * @Last Modified time: 2019-03-09 17:59:35
  */
 import '@tarojs/async-await'
 import Taro, { Component } from '@tarojs/taro'
@@ -21,9 +21,9 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/subject/index',
       'pages/login/index',
-      'pages/search/index',
-      'pages/subject/index'
+      'pages/search/index'
     ],
     window: {
       backgroundTextStyle: 'light',

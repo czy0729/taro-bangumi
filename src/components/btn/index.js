@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-22 04:24:44
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-08 07:28:39
+ * @Last Modified time: 2019-03-09 17:07:08
  */
 import classNames from 'classnames'
 import Taro from '@tarojs/taro'
@@ -21,6 +21,7 @@ export default class Btn extends Component {
     shadow: false,
     loading: false,
     disabled: false,
+    text: '',
     onClick: Function.prototype
   }
   render() {
@@ -33,9 +34,9 @@ export default class Btn extends Component {
       shadow,
       loading,
       disabled,
+      text,
       onClick
     } = this.props
-
     return (
       <Button
         className={classNames(
@@ -60,7 +61,7 @@ export default class Btn extends Component {
             [`${cls}__text--${size}`]: size
           })}
         >
-          {this.props.children}
+          {text || this.props.children}
         </Text>
       </Button>
     )

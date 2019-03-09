@@ -2,13 +2,14 @@
  * @Author: czy0729
  * @Date: 2019-02-28 06:13:18
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-08 07:30:27
+ * @Last Modified time: 2019-03-09 19:42:57
  */
-import Taro from '@tarojs/taro'
-import { Image } from '@tarojs/components'
-import Component from '@components/component'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import Taro from '@tarojs/taro'
+import { View, Image } from '@tarojs/components'
+import Component from '@components/component'
+import './index.scss'
 
 const cls = 'c-img'
 
@@ -29,7 +30,7 @@ export default class Img extends Component {
     mode: 'aspectFill',
     width: null,
     height: null,
-    onClick: Function.prototype
+    onClick: null
   }
   render() {
     const {
@@ -46,14 +47,23 @@ export default class Img extends Component {
       width: Taro.pxTransform(width),
       height: Taro.pxTransform(height || width)
     }
+    if (process.env.TARO_ENV === 'h5') {
+      _style.backgroundImage = `url(${src})`
+    }
     return (
-      <Image
-        className={classNames(cls, className)}
-        src={src}
-        mode={mode}
-        style={this.composeStyle(_style, styles || style)}
+      <View
+        className={classNames(
+          cls,
+          {
+            [`${cls}--h5`]: process.env.TARO_ENV === 'h5'
+          },
+          className
+        )}
+        style={styles || style}
         onClick={onClick}
-      />
+      >
+        <Image src={src} mode={mode} style={_style} lazyLoad />
+      </View>
     )
   }
 }

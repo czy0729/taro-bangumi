@@ -2,8 +2,8 @@
 
 .c-app-eps {
   &__btn {
-    margin-right: 20px;
-    margin-bottom: 20px;
+    margin-right: 24px;
+    margin-bottom: 24px;
 
     &--side {
       margin-right: 0;
@@ -12,8 +12,8 @@
   &__sp {
     width: 64px;
     height: 64px;
-    margin-right: 20px;
-    margin-bottom: 20px;
+    margin-right: 24px;
+    margin-bottom: 24px;
     @include border(left, 4px, solid, $color-sub);
   }
 }

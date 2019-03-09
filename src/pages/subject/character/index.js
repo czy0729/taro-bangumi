@@ -2,19 +2,23 @@
  * @Author: czy0729
  * @Date: 2019-03-02 06:00:38
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-05 04:37:11
+ * @Last Modified time: 2019-03-08 22:14:26
  */
-import Taro, { Component } from '@tarojs/taro'
-import { observer } from '@tarojs/mobx'
+import Taro from '@tarojs/taro'
+import { inject, observer } from '@tarojs/mobx'
+import Component from '@common/component'
 import { Character } from '@components/app'
-import { subjectStore } from '@stores'
 
 const cls = 'subject-character'
 
+@inject('subjectStore')
 @observer
 export default class SubjectCharacter extends Component {
+  static defaultProps = {
+    subjectId: null
+  }
   get items() {
-    const { subjectId } = this.props
+    const { subjectId, subjectStore } = this.props
     const { crt = [] } = subjectStore.getSubject(subjectId)
     return crt.map(({ id, images, name, name_cn, role_name, actors }) => ({
       id,

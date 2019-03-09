@@ -2,10 +2,10 @@
  * @Author: czy0729
  * @Date: 2019-03-02 22:37:53
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-07 01:50:38
+ * @Last Modified time: 2019-03-09 17:05:13
  */
-import Taro from '@tarojs/taro'
 import classNames from 'classnames'
+import Taro from '@tarojs/taro'
 import Component from '@components/component'
 import { P } from '@components'
 import './index.scss'
@@ -31,11 +31,15 @@ export default class AppScoreTag extends Component {
     return '不忍直视'
   }
   render() {
-    const { className } = this.props
+    const { className, style } = this.props
     return (
-      <P className={classNames(cls, className)} type='plain' size={10}>
-        {this.getLabel}
-      </P>
+      <P
+        className={classNames(cls, className)}
+        type='plain'
+        size={12}
+        style={style}
+        text={this.getLabel}
+      />
     )
   }
 }

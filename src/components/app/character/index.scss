@@ -6,10 +6,14 @@
     margin-top: 24px;
     margin-right: 24px;
 
+    &-shadow {
+      border-radius: 8px;
+      box-shadow: $box-shadow-img;
+    }
     &-image {
       border: 2px solid $color-border;
       border-radius: 8px;
-      box-shadow: $box-shadow-img;
+      overflow: hidden;
     }
     &-desc {
       @include lamp-clamp(2);

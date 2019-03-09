@@ -2,16 +2,15 @@
  * @Author: czy0729
  * @Date: 2019-02-26 04:18:33
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-08 02:16:32
+ * @Last Modified time: 2019-03-10 04:20:01
  */
 // NOTE 组件命名不能与小程序自带的组件重名
+// export { default as Flex } from './flex'
+// export { default as FlexCol } from './flex/col'
+// export { default as FlexItem } from './flex/item'
+// export { default as FlexRow } from './flex/row'
 export { default as BlurBg } from './blur-bg'
 export { default as Btn } from './btn'
-export { default as Div } from './div'
-export { default as Flex } from './flex'
-export { default as FlexCol } from './flex/col'
-export { default as FlexItem } from './flex/item'
-export { default as FlexRow } from './flex/row'
 export { default as Ico } from './ico'
 export { default as Img } from './img'
 export { default as Loading } from './loading'

@@ -15,7 +15,8 @@ $color-warning: rgb(254, 190, 88);
 $color-wait: rgb(200, 200, 200);
 $color-disabled: rgb(150, 150, 150);
 $color-border: #ddd;
-$color-bg: #fbfbfb;
+$color-bg: #fff;
+$color-placeholder: #fbfbfb;
 
 // 文字颜色
 $color-title: #000;
@@ -24,4 +25,4 @@ $color-sub: #aaa;
 $color-default: #ddd;
 
 // 其他
-$box-shadow-img: 0px 2px 16px rgba(0, 0, 0, 0.08);
+$box-shadow-img: 0px 2px 16px rgba(0, 0, 0, 0.12);

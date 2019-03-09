@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-28 07:08:33
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-08 07:28:31
+ * @Last Modified time: 2019-03-08 11:03:56
  */
 import classNames from 'classnames'
 import Taro from '@tarojs/taro'
@@ -11,6 +11,12 @@ import Component from '@components/component'
 import './index.scss'
 
 const cls = 'c-blur-bg'
+const backgroundColor = {
+  dark: 'rgba(0, 0, 0, 0.16)',
+  light: 'rgba(255, 255, 255, 0.16)',
+  xlight: 'rgba(255, 255, 255, 0.84)'
+}
+const ImageRN = process.env.TARO_ENV === 'rn' ? require('./rn').default : null
 
 export default class BlurBg extends Component {
   static defaultProps = {
@@ -22,13 +28,36 @@ export default class BlurBg extends Component {
   render() {
     const { className, style, styles, theme, src } = this.props
 
-    // TODO RN
     if (process.env.TARO_ENV === 'rn') {
-      return (
-        <View className={classNames(cls, className)} style={styles || style}>
-          {this.props.children}
-        </View>
-      )
+      if (theme)
+        return (
+          <View className={classNames(cls, className)} style={styles || style}>
+            {src && (
+              <ImageRN
+                src={src}
+                blurRadius={10}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  left: 0
+                }}
+              />
+            )}
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                backgroundColor: backgroundColor[theme]
+              }}
+            />
+            {this.props.children}
+          </View>
+        )
     }
 
     return (

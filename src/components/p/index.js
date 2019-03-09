@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-27 23:37:35
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-08 07:40:51
+ * @Last Modified time: 2019-03-09 17:07:49
  */
 import Taro from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
@@ -29,20 +29,30 @@ export default class P extends Component {
       'warning'
     ]),
     size: PropTypes.number,
-    lineHeight: PropTypes.number
+    lineHeight: PropTypes.number,
+    text: PropTypes.any
   }
   static defaultProps = {
     className: '',
     styles: null,
     type: null,
     size: 14,
-    lineHeight: null
+    lineHeight: null,
+    text: ''
   }
   render() {
-    const { className, style, styles, type, size, lineHeight } = this.props
-    let _style
+    const {
+      className,
+      style,
+      styles,
+      type,
+      size,
+      lineHeight,
+      text
+    } = this.props
 
     // 小于等于2的lineHeight用作比率
+    let _style
     if (lineHeight) {
       _style = {
         lineHeight: Taro.pxTransform(
@@ -64,7 +74,7 @@ export default class P extends Component {
           )}
           style={this.composeStyle(_style, styles || style)}
         >
-          {this.props.children}
+          {text || this.props.children}
         </Text>
       )
     }
@@ -79,7 +89,7 @@ export default class P extends Component {
           })}
           style={this.composeStyle(_style, styles || style)}
         >
-          {this.props.children}
+          {text || this.props.children}
         </Text>
       </View>
     )

@@ -3,11 +3,34 @@
  * @Author: czy0729
  * @Date: 2019-02-27 07:47:57
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-06 04:01:49
+ * @Last Modified time: 2019-03-09 19:16:14
  */
 import { observable, computed } from 'mobx'
 import { API_SUBJECT, API_SUBJECT_EP, API_CALENDAR } from '@constants/api'
 import common, { dev } from './common'
+
+const initSubject = {
+  air_date: '',
+  air_weekday: '',
+  blog: null,
+  collection: {},
+  crt: [],
+  eps: [],
+  eps_count: '',
+  id: '',
+  images: {},
+  name: '',
+  name_cn: '',
+  rank: '',
+  rating: {
+    count: {}
+  },
+  staff: [],
+  summary: '',
+  topic: [],
+  type: '',
+  url: ''
+}
 
 class Subject extends common {
   @observable state = {
@@ -22,7 +45,7 @@ class Subject extends common {
    * @param {*} subjectId
    */
   getSubject(subjectId) {
-    return computed(() => this.state.subject[subjectId] || {}).get()
+    return computed(() => this.state.subject[subjectId] || initSubject).get()
   }
 
   /**
@@ -36,7 +59,7 @@ class Subject extends common {
   /**
    * 取每日放送
    */
-  @computed get getCalendar() {
+  @computed get calendar() {
     return this.state.calendar
   }
 

@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-27 06:42:51
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-08 04:29:25
+ * @Last Modified time: 2019-03-09 19:11:30
  */
 import Taro from '@tarojs/taro'
 import { inject, observer } from '@tarojs/mobx'
@@ -19,6 +19,11 @@ const initSubject = { images: {}, collection: {}, eps_count: 0 }
 @inject('userStore', 'subjectStore')
 @observer
 export default class HomeItem extends Component {
+  static defaultProps = {
+    subjectId: null,
+    subject: initSubject,
+    epStatus: '-'
+  }
   state = {
     expand: false
   }
@@ -65,7 +70,7 @@ export default class HomeItem extends Component {
     return this.eps.findIndex(item => item.status === 'Today') !== -1
   }
   get percent() {
-    const { subject = initSubject } = this.props
+    const { subject } = this.props
     if (!subject.eps_count || !this.eps.length) {
       return 0
     }
@@ -91,14 +96,13 @@ export default class HomeItem extends Component {
     return this.eps[index].sort
   }
   render() {
-    const { subject = initSubject, epStatus = '-' } = this.props
+    const { subject, epStatus } = this.props
     const { expand } = this.state
     return (
       <BlurBg className={cls} theme='xlight' src={subject.images.medium}>
         <View className='flex flex-align-start p-v p-l'>
-          <View>
+          <View className={`${cls}__thumb`}>
             <Img
-              className={`${cls}__thumb`}
               width={160}
               src={subject.images.medium}
               onClick={this.onClick}
@@ -107,15 +111,16 @@ export default class HomeItem extends Component {
           <View className='flex-item p-l'>
             <View className='flex flex-align-start p-r'>
               <View className='flex-item'>
-                <P size={18}>{subject.name_cn || subject.name}</P>
-                <P className='mt-xs' type='sub' size={12}>
-                  {subject.collection.doing} 人在看
-                </P>
+                <P size={18} text={subject.name_cn || subject.name} />
+                <P
+                  className='mt-xs'
+                  type='sub'
+                  size={12}
+                  text={`${subject.collection.doing} 人在看`}
+                />
               </View>
               {this.isToday && (
-                <P type='success' size={12} lineHeight={18}>
-                  放送中
-                </P>
+                <P type='success' size={12} lineHeight={18} text='放送中' />
               )}
             </View>
             {expand && (
@@ -129,12 +134,18 @@ export default class HomeItem extends Component {
               <View className='flex-item'>
                 {!expand && (
                   <View className='flex flex-align-end'>
-                    <P type='primary' size={22} lineHeight={1}>
-                      {epStatus}
-                    </P>
-                    <P className='ml-xs' type='sub' size={12}>
-                      / {subject.eps_count || '-'}
-                    </P>
+                    <P
+                      type='primary'
+                      size={22}
+                      lineHeight={1}
+                      text={epStatus}
+                    />
+                    <P
+                      className='ml-xs'
+                      type='sub'
+                      size={12}
+                      text={`/ ${subject.eps_count || '-'}`}
+                    />
                   </View>
                 )}
               </View>
@@ -151,9 +162,13 @@ export default class HomeItem extends Component {
                     onClick={this.watchedNextEp}
                   >
                     <Ico type='check' />
-                    <P className='ml-xs' type='sub' size={12} lineHeight={1}>
-                      EP.{this.nextCheckEp || '-'}
-                    </P>
+                    <P
+                      className='ml-xs'
+                      type='sub'
+                      size={12}
+                      lineHeight={1}
+                      text={`EP.${this.nextCheckEp || '-'}`}
+                    />
                   </View>
                 )}
               </View>

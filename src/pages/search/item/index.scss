@@ -5,9 +5,13 @@
   margin-right: 24px;
   margin-bottom: 24px;
 
-  &__thumb {
+  &__shadow {
     border-radius: 8px;
     box-shadow: $box-shadow-img;
+  }
+  &__thumb {
+    border-radius: 8px;
+    overflow: hidden;
   }
   &__name {
     margin-top: 16px;

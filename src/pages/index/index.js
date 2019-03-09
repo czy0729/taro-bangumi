@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-23 15:41:43
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-08 04:33:31
+ * @Last Modified time: 2019-03-10 04:06:55
  */
 import Taro from '@tarojs/taro'
 import { inject, observer } from '@tarojs/mobx'
@@ -12,6 +12,7 @@ import { Loading } from '@components'
 import { sleep } from '@utils'
 import Login from './login'
 import List from './list'
+import './index.scss'
 
 const cls = 'home'
 
@@ -25,8 +26,14 @@ export default class Home extends Component {
     loading: true
   }
   async componentDidMount() {
+    Taro.showActionSheet({
+      itemList: ['a', 'b', 'c']
+    })
+      .then(res => console.log(res.errMsg, res.tapIndex))
+      .catch(err => console.log(err.errMsg))
     const { userStore, subjectStore } = this.props
-    if (userStore.isLogin()) {
+    const { isLogin } = userStore
+    if (isLogin) {
       const data = await Promise.all([
         userStore.fetchUserCollection(),
         userStore.fetchUserProgress()
@@ -45,19 +52,13 @@ export default class Home extends Component {
     })
   }
   render() {
-    const { userStore } = this.props
-    if (!userStore.isLogin()) {
-      return <Login />
-    }
-
+    const {
+      userStore: { isLogin }
+    } = this.props
     const { loading } = this.state
-    if (loading) {
-      return <Loading />
-    }
-
     return (
       <View className={cls}>
-        <List />
+        {isLogin ? loading ? <Loading /> : <List /> : <Login />}
       </View>
     )
   }

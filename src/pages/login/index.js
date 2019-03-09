@@ -2,15 +2,18 @@
  * @Author: czy0729
  * @Date: 2019-02-21 20:29:31
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-06 00:12:55
+ * @Last Modified time: 2019-03-09 19:05:35
  */
-import Taro, { Component } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import { observer } from '@tarojs/mobx'
-import { Div, Web } from '@components'
+import { View } from '@tarojs/components'
+import Component from '@common/component'
+import { Web } from '@components'
 import { ENV, APP_ID, OAUTH_URL, OAUTH_REDIRECT_URL } from '@constants'
 import { userStore } from '@stores'
 import { jump } from '@utils'
 import Stage from './stage'
+import './index.scss'
 
 const cls = 'login'
 const oauthUrl = `${OAUTH_URL}?response_type=code&client_id=${APP_ID}&redirect_uri=${OAUTH_REDIRECT_URL}`
@@ -50,16 +53,17 @@ export default class Login extends Component {
   }
   render() {
     const { clicked } = this.state
-    if (!clicked) {
-      return <Stage onLogin={this.onLogin} onTour={this.onTour} />
-    }
     return (
-      <Div className={cls}>
-        <Web
-          src={oauthUrl}
-          onNavigationStateChange={this.onNavigationStateChange}
-        />
-      </Div>
+      <View className={cls}>
+        {clicked ? (
+          <Web
+            src={oauthUrl}
+            onNavigationStateChange={this.onNavigationStateChange}
+          />
+        ) : (
+          <Stage onLogin={this.onLogin} onTour={this.onTour} />
+        )}
+      </View>
     )
   }
 }

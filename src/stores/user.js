@@ -3,7 +3,7 @@
  * @Author: czy0729
  * @Date: 2019-02-21 20:40:30
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-07 00:54:23
+ * @Last Modified time: 2019-03-09 18:00:54
  */
 import { observable, computed } from 'mobx'
 import fetch from '@utils/fetch'
@@ -30,7 +30,7 @@ class User extends common {
   /**
    * 取自己用户信息
    */
-  getUserInfo() {
+  @computed get userInfo() {
     return this.state.userInfo
   }
 
@@ -38,7 +38,7 @@ class User extends common {
    * 取某人的在看收藏
    * @param {*} userId
    */
-  getUserCollection(userId = this.getMyUserId()) {
+  getUserCollection(userId = this.myUserId) {
     return computed(() => this.state.userCollection[userId] || []).get()
   }
 
@@ -47,7 +47,7 @@ class User extends common {
    * @param {*} subjectId
    * @param {*} userId
    */
-  getUserProgress(subjectId, userId = this.getMyUserId()) {
+  getUserProgress(subjectId, userId = this.myUserId) {
     return computed(
       () => this.state.userProgress[`${userId}|${subjectId}`] || {}
     ).get()
@@ -56,15 +56,15 @@ class User extends common {
   /**
    * 取自己用户Id
    */
-  getMyUserId() {
-    return this.getUserInfo().user_id
+  @computed get myUserId() {
+    return this.userInfo.user_id
   }
 
   /**
    * 取是否登录
    */
-  isLogin() {
-    return !!this.getUserInfo().access_token
+  @computed get isLogin() {
+    return !!this.userInfo.access_token
   }
 
   // -------------------- fetch --------------------
@@ -93,7 +93,7 @@ class User extends common {
    * 获取某人的在看收藏
    * @param {*} userId
    */
-  fetchUserCollection(userId = this.getMyUserId()) {
+  fetchUserCollection(userId = this.myUserId) {
     return this.fetch(
       `${API_USER_COLLECTION(userId)}?cat=watching&ids=243916`,
       ['userCollection', userId]
@@ -105,7 +105,7 @@ class User extends common {
    * @param {*} subjectId
    * @param {*} userId
    */
-  async fetchUserProgress(subjectId, userId = this.getMyUserId()) {
+  async fetchUserProgress(subjectId, userId = this.myUserId) {
     const config = {
       url: API_USER_PROGRESS(userId),
       payload: {},

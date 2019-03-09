@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-26 02:16:45
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-07 00:54:17
+ * @Last Modified time: 2019-03-09 18:02:47
  */
 import Taro from '@tarojs/taro'
 import { userStore } from '@stores'
@@ -25,7 +25,7 @@ const STATUS_NOT_MODIFIED = 304
  */
 const retryCount = {}
 export default function fetch({ url, payload = {}, method = 'GET', retryCb }) {
-  const { token_type, access_token } = userStore.getUserInfo()
+  const { token_type, access_token } = userStore.userInfo
   const header = {
     Authorization: `${token_type} ${access_token}`
   }

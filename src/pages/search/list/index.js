@@ -2,33 +2,37 @@
  * @Author: czy0729
  * @Date: 2019-02-27 08:13:29
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-07 01:52:32
+ * @Last Modified time: 2019-03-09 19:17:37
  */
-import Taro, { Component } from '@tarojs/taro'
-import { observer } from '@tarojs/mobx'
 import classNames from 'classnames'
-import { Div, P, Flex } from '@components'
-import { subjectStore } from '@stores'
+import Taro from '@tarojs/taro'
+import { inject, observer } from '@tarojs/mobx'
+import { View } from '@tarojs/components'
+import Component from '@common/component'
+import { P } from '@components'
 import Item from '../item'
 import './index.scss'
 
 const cls = 'search-list'
 
+@inject('subjectStore')
 @observer
 export default class SearchList extends Component {
   render() {
-    const { calendar } = subjectStore.state
+    const {
+      subjectStore: { calendar }
+    } = this.props
     return (
-      <Div className={cls}>
+      <View className={`${cls} p-v p-l`}>
         {calendar.map((item, index) => (
-          <Div
+          <View
             key={item.weekday.cn}
             className={classNames({
               'mt-md': index > 0
             })}
           >
-            <P size={24}>{item.weekday.cn}</P>
-            <Flex className='mt-sm' wrap='wrap' align='start'>
+            <P size={24} text={item.weekday.cn} />
+            <View className='flex flex-wrap flex-align-start mt-sm'>
               {item.items.map(i => (
                 <Item
                   key={i.id}
@@ -38,10 +42,10 @@ export default class SearchList extends Component {
                   nameCn={i.name_cn}
                 />
               ))}
-            </Flex>
-          </Div>
+            </View>
+          </View>
         ))}
-      </Div>
+      </View>
     )
   }
 }
