@@ -1,0 +1,14 @@
+@import '@styles/theme';
+
+.c-img {
+  &--h5 {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: $color-placeholder;
+
+    img {
+      display: none;
+    }
+  }
+}
