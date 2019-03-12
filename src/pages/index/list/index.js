@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-23 15:42:05
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-08 04:31:15
+ * @Last Modified time: 2019-03-11 20:23:23
  */
 import Taro from '@tarojs/taro'
 import { inject, observer } from '@tarojs/mobx'

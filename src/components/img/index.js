@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-28 06:13:18
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-09 19:42:57
+ * @Last Modified time: 2019-03-10 04:33:53
  */
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
@@ -52,17 +52,19 @@ export default class Img extends Component {
     }
     return (
       <View
-        className={classNames(
-          cls,
-          {
-            [`${cls}--h5`]: process.env.TARO_ENV === 'h5'
-          },
-          className
-        )}
+        className={classNames(cls, className)}
         style={styles || style}
         onClick={onClick}
       >
-        <Image src={src} mode={mode} style={_style} lazyLoad />
+        <Image
+          className={classNames({
+            [`${cls}--h5`]: process.env.TARO_ENV === 'h5'
+          })}
+          src={src}
+          mode={mode}
+          style={_style}
+          lazyLoad
+        />
       </View>
     )
   }

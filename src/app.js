@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-21 00:22:40
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-09 17:59:35
+ * @Last Modified time: 2019-03-12 03:44:49
  */
 import '@tarojs/async-await'
 import Taro, { Component } from '@tarojs/taro'
@@ -14,6 +14,7 @@ import './app.scss'
 const store = {
   collectionStore,
   subjectStore,
+  // uiStore,
   userStore
 }
 

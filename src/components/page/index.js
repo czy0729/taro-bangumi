@@ -18,9 +18,12 @@ export default class Page extends Component {
     styles: null
   }
   render() {
-    const { className, styles } = this.props
+    const { className, style, styles } = this.props
     return (
-      <View className={classNames(prefixCls, className)} style={styles}>
+      <View
+        className={classNames(prefixCls, className)}
+        style={styles || style}
+      >
         {this.props.children}
       </View>
     )

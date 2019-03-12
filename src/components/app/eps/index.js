@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-03-03 00:19:51
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-09 17:04:54
+ * @Last Modified time: 2019-03-12 04:40:21
  */
 import classNames from 'classnames'
 import Taro from '@tarojs/taro'
@@ -18,7 +18,8 @@ export default class AppEps extends Component {
   static defaultProps = {
     className: '',
     items: [],
-    userProgress: {}
+    userProgress: {},
+    onClick: Function.prototype
   }
   getType = ({ id, status }) => {
     const { userProgress = {} } = this.props
@@ -42,13 +43,12 @@ export default class AppEps extends Component {
     }
   }
   render() {
-    const { className, style, items = [] } = this.props
+    const { className, style, items = [], onClick } = this.props
     const itemsNormal = []
     const itemsSp = []
     items.forEach(item => {
       item.type === 1 ? itemsSp.push(item) : itemsNormal.push(item)
     })
-
     return (
       <View
         className={classNames(cls, 'flex flex-wrap', className)}
@@ -61,9 +61,9 @@ export default class AppEps extends Component {
             type={this.getType(item)}
             ghost
             size='mini'
-          >
-            {pad(item.sort)}
-          </Btn>
+            text={pad(item.sort)}
+            onClick={onClick}
+          />
         ))}
         {!!itemsSp.length && (
           <View
@@ -80,9 +80,8 @@ export default class AppEps extends Component {
             type={this.getType(item)}
             ghost
             size='mini'
-          >
-            {pad(item.sort)}
-          </Btn>
+            text={pad(item.sort)}
+          />
         ))}
       </View>
     )

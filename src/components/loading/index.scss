@@ -4,8 +4,10 @@
   @include full();
   flex-direction: row;
   background: $color-bg;
+}
 
-  /*postcss-pxtransform rn eject enable*/
+/*postcss-pxtransform rn eject enable*/
+.c-loading {
   @keyframes float {
     0% {
       height: 20PX;
@@ -41,5 +43,5 @@
       animation-delay: 0.4s;
     }
   }
-  /*postcss-pxtransform rn eject disable*/
 }
+/*postcss-pxtransform rn eject disable*/

@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-27 06:42:51
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-09 19:11:30
+ * @Last Modified time: 2019-03-12 04:41:40
  */
 import Taro from '@tarojs/taro'
 import { inject, observer } from '@tarojs/mobx'
@@ -10,6 +10,7 @@ import { View } from '@tarojs/components'
 import Component from '@common/component'
 import { BlurBg, P, Img, Ico, ProgressBar } from '@components'
 import { Eps } from '@components/app'
+import { uiStore } from '@stores'
 import { getStorage, updateStorage, jump } from '@utils'
 import './index.scss'
 
@@ -42,6 +43,31 @@ export default class HomeItem extends Component {
         subjectId
       }
     })
+  }
+  onItemClick = (a = {}, e) => {
+    const { id, sort, name, name_cn, airdate, comment } = a
+    const data = {
+      component: 'Menu',
+      props: {
+        title: [
+          `ep.${sort} ${name || name_cn}`,
+          `${airdate} 讨论数：${comment}`
+        ],
+        data: ['看过', '看到', '本集讨论'],
+        width: Taro.pxTransform(376),
+        onClick: index => {
+          uiStore.hidePopover()
+          console.log(index)
+        }
+      }
+    }
+    if (process.env.TARO_ENV === 'weapp') {
+      data.weapp = {
+        offsetWidth: 28,
+        offsetHeight: 28
+      }
+    }
+    uiStore.showPopover(e, data, true)
   }
   toggleExpand = () => {
     const { subjectId } = this.props
@@ -128,6 +154,7 @@ export default class HomeItem extends Component {
                 className='mt-md'
                 items={this.eps}
                 userProgress={this.userProgress}
+                onClick={this.onItemClick}
               />
             )}
             <View className='flex mt-md'>

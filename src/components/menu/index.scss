@@ -1,0 +1,40 @@
+@import '@styles/theme';
+
+$color-item: #f7f7f7;
+
+.c-menu {
+  border-radius: 8px;
+  box-shadow: 0 2px 32px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+
+  &__title {
+    padding: 24px 16px;
+    text-align: center;
+    background: $color-plain;
+    @include border(bottom, 1px, solid, $color-item);
+
+    &-item {
+      @include eject(display, block);
+      @include font-size(12px);
+      color: $color-sub;
+    }
+  }
+  &__item {
+    padding: 24px 16px;
+    text-align: center;
+    background: $color-plain;
+    @include border(top, 1px, solid, $color-item);
+
+    &:active {
+      background: $color-item;
+    }
+    &--first {
+      border-top-width: 0;
+    }
+
+    &-text {
+      @include font-size(16px);
+      text-align: center;
+    }
+  }
+}

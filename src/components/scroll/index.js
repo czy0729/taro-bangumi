@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-03-04 02:19:10
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-08 11:07:52
+ * @Last Modified time: 2019-03-12 03:47:28
  */
 import Taro from '@tarojs/taro'
 import { ScrollView } from '@tarojs/components'

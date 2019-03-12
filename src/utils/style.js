@@ -2,12 +2,12 @@
  * @Author: czy0729
  * @Date: 2019-02-22 11:49:01
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-04 19:45:40
+ * @Last Modified time: 2019-03-11 23:10:15
  */
 import Taro from '@tarojs/taro'
 
 const NAVIGATOR_HEIGHT = 44
-const TAB_BAR_HEIGHT = 54
+const TAB_BAR_HEIGHT = 50
 
 /**
  * // NOTE Taro 可用高度的计算有问题，H5、RN 上返回的是窗口高度，暂且简单兼容下
@@ -23,10 +23,10 @@ export function getWindowHeight(showTabBar) {
   }
 
   if (process.env.TARO_ENV === 'h5') {
-    return `${windowHeight - tabBarHeight}px`
+    return windowHeight - tabBarHeight
   }
 
-  return `${windowHeight}px`
+  return windowHeight
 }
 
 /**
