@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-03-10 06:43:35
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-12 04:48:38
+ * @Last Modified time: 2019-03-13 01:55:59
  */
 import Taro from '@tarojs/taro'
 import { observable, computed } from 'mobx'
@@ -11,14 +11,14 @@ import common, { dev } from './common'
 
 const initPopover = {
   show: false,
-  top: 0,
-  left: 0,
-  position: '',
-  content: {
-    name: '',
-    props: {},
-    onClick: Function.prototype
-  }
+  contentStyle: {
+    top: 0,
+    right: 'auto',
+    bottom: 'auto',
+    left: 0
+  },
+  contentPosition: 'left-bottom',
+  props: {}
 }
 
 class UI extends common {
@@ -30,77 +30,69 @@ class UI extends common {
     return this.state.popover
   }
 
-  showPopover = (e, data, showTabBar) => {
-    // let {
-    //   pageX,
-    //   pageY,
-    //   layerX,
-    //   layerY,
-    //   currentTarget: { offsetWidth, offsetHeight }
-    // } = e
-    console.log(e)
-    // if (process.env.TARO_ENV === 'weapp') {
-    //   pageX = e.detail.x
-    //   pageY = e.detail.y
-    //   layerX = e.target.offsetLeft
-    //   layerY = e.target.offsetTop
-    //   offsetWidth = data.weapp.offsetWidth
-    //   offsetHeight = data.weapp.offsetHeight
-    // }
-    // const popover = {
-    //   show: true,
-    //   content: {
-    //     component: data.component,
-    //     props: data.props
-    //   }
-    // }
+  showPopover = (props, evt, { offsetWidth, offsetHeight, showTabBar }) => {
+    const popover = {
+      show: true,
+      props: {
+        ...props
+      },
+      contentStyle: {},
+      contentPosition: ''
+    }
 
-    // // 以点击元素左下角的点坐标, 判断放置方向
-    // const { windowWidth } = Taro.getSystemInfoSync()
-    // const windowHeight = getWindowHeight(showTabBar)
-    // const left = pageX - layerX
-    // if (left <= windowWidth / 2) {
-    //   popover.left = `${left}PX`
-    //   popover.right = 'auto'
-    //   popover.position = 'left'
-    // } else {
-    //   popover.right = `${windowWidth - pageX + layerX - offsetWidth}PX`
-    //   popover.left = 'auto'
-    //   popover.position = 'right'
-    // }
+    const {
+      windowWidth,
+      statusBarHeight,
+      pixelRatio
+    } = Taro.getSystemInfoSync()
+    const windowHeight = getWindowHeight(showTabBar)
+    let pageX
+    let pageY
+    let layerX
+    let layerY
+    if (process.env.TARO_ENV === 'h5') {
+      pageX = evt.pageX
+      pageY = evt.pageY
+      layerX = evt.layerX
+      layerY = evt.layerY
+    } else if (process.env.TARO_ENV === 'weapp') {
+      pageX = evt.detail.x
+      pageY = evt.detail.y
+      layerX = evt.target.offsetLeft
+      layerY = evt.target.offsetTop
+    } else if (process.env.TARO_ENV === 'rn') {
+      pageX = evt.nativeEvent.pageX
 
-    // const bottom = pageY + offsetHeight - layerY
-    // if (bottom <= windowHeight / 2) {
-    //   popover.top = `${bottom}PX`
-    //   popover.bottom = 'auto'
-    //   popover.position = popover.position + '-bottom'
-    // } else {
-    //   popover.bottom = `${windowHeight - pageY + layerY}PX`
-    //   popover.top = 'auto'
-    //   popover.position = popover.position + '-top'
-    // }
+      // ? 貌似纵坐标包含了设备头部的高度
+      pageY = evt.nativeEvent.pageY - statusBarHeight * (pixelRatio - 1)
+      layerX = evt.nativeEvent.locationX
+      layerY = evt.nativeEvent.locationY
+    }
 
-    // this.setState({ popover })
+    // 以点击元素左下角的点坐标, 判断放置方向
+    const left = pageX - layerX
+    if (left <= windowWidth / 2) {
+      popover.contentStyle.left = left
+      popover.contentStyle.right = 'auto'
+      popover.contentPosition = 'left'
+    } else {
+      popover.contentStyle.right = windowWidth - pageX + layerX - offsetWidth
+      popover.contentStyle.left = 'auto'
+      popover.contentPosition = 'right'
+    }
 
-    this.setState({
-      popover: {
-        show: true,
-        content: {
-          component: 'Menu',
-          props: {
-            title: [`ep.1 123123`, `123123 讨论数：123123`],
-            data: ['看过', '看到', '本集讨论'],
-            width: Taro.pxTransform(376),
-            onClick: index => {
-              this.hidePopover()
-              console.log(index)
-            }
-          }
-        },
-        top: 100,
-        left: 100
-      }
-    })
+    const bottom = pageY + offsetHeight - layerY
+    if (bottom <= windowHeight / 2) {
+      popover.contentStyle.top = bottom
+      popover.contentStyle.bottom = 'auto'
+      popover.contentPosition = popover.contentPosition + '-bottom'
+    } else {
+      popover.contentStyle.bottom = windowHeight - pageY + layerY
+      popover.contentStyle.top = 'auto'
+      popover.contentPosition = popover.contentPosition + '-top'
+    }
+
+    this.setState({ popover })
   }
 
   hidePopover = () => {

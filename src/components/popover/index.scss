@@ -1,0 +1,26 @@
+.c-popover {
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  &__content {
+    position: absolute;
+    z-index: 1000;
+    border-radius: 8px;
+
+    &--left-bottom {
+      box-shadow: 12px 24px 24px rgba(0, 0, 0, 0.16);
+    }
+    &--right-bottom {
+      box-shadow: -12px 24px 24px rgba(0, 0, 0, 0.16);
+    }
+    &--left-top {
+      box-shadow: 12px -24px 24px rgba(0, 0, 0, 0.16);
+    }
+    &--right-top {
+      box-shadow: -12px -24px 24px rgba(0, 0, 0, 0.16);
+    }
+  }
+}

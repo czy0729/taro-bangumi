@@ -2,12 +2,12 @@
  * @Author: czy0729
  * @Date: 2019-02-22 11:49:01
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-11 23:10:15
+ * @Last Modified time: 2019-03-13 01:39:39
  */
 import Taro from '@tarojs/taro'
 
 const NAVIGATOR_HEIGHT = 44
-const TAB_BAR_HEIGHT = 50
+const TAB_BAR_HEIGHT = 52
 
 /**
  * // NOTE Taro 可用高度的计算有问题，H5、RN 上返回的是窗口高度，暂且简单兼容下

@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-22 04:24:44
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-12 04:37:40
+ * @Last Modified time: 2019-03-13 01:50:11
  */
 import classNames from 'classnames'
 import Taro from '@tarojs/taro'
@@ -11,6 +11,12 @@ import Component from '@components/component'
 import './index.scss'
 
 const cls = 'c-btn'
+
+/**
+ * Taro的RN端Button的onClick没有回传event对象
+ * 本项目有场景需要, 手动修改下源文件
+ */
+const ButtonRN = process.env.TARO_ENV === 'rn' ? require('./rn').default : null
 
 export default class Btn extends Component {
   static defaultProps = {
@@ -37,32 +43,47 @@ export default class Btn extends Component {
       text,
       onClick
     } = this.props
+    const _cls = classNames(
+      cls,
+      {
+        // NOTE Taro提供的Button带有paddingHorizontal而且不能通过padding重置
+        [`${cls}--rn`]: process.env.TARO_ENV === 'rn',
+        [`${cls}--${type}`]: type,
+        [`${cls}--${size}`]: size,
+        [`${cls}--shadow`]: shadow
+      },
+      className
+    )
+    const _clsText = classNames(`${cls}__text`, {
+      [`${cls}__text--${type}`]: type,
+      [`${cls}__text--${size}`]: size
+    })
+
+    if (process.env.TARO_ENV === 'rn') {
+      return (
+        <ButtonRN
+          className={_cls}
+          loading={loading}
+          disabled={disabled}
+          style={styles || style}
+          onClick={onClick}
+        >
+          <Text className={_clsText} selectable={false}>
+            {text || this.props.children}
+          </Text>
+        </ButtonRN>
+      )
+    }
+
     return (
       <Button
-        className={classNames(
-          cls,
-          {
-            // NOTE Taro提供的Button带有paddingHorizontal而且不能通过padding重置
-            [`${cls}--rn`]: process.env.TARO_ENV === 'rn',
-            [`${cls}--${type}`]: type,
-            [`${cls}--${size}`]: size,
-            [`${cls}--shadow`]: shadow
-          },
-          className
-        )}
+        className={_cls}
         loading={loading}
         disabled={disabled}
         style={styles || style}
         onClick={onClick}
       >
-        <Text
-          className={classNames(`${cls}__text`, {
-            [`${cls}__text--${type}`]: type,
-            [`${cls}__text--${size}`]: size
-          })}
-        >
-          {text || this.props.children}
-        </Text>
+        <Text className={_clsText}>{text || this.props.children}</Text>
       </Button>
     )
   }

@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-21 20:36:42
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-06 06:46:49
+ * @Last Modified time: 2019-03-24 17:11:22
  */
 import Taro from '@tarojs/taro'
 
@@ -295,6 +295,19 @@ export function date(format, timestamp) {
   })
 }
 /* eslint-enable */
+
+/**
+ * IOS8601时间转换
+ * @param {*} isostr
+ */
+export function parseIOS8601(isostr, format = 'Y-m-d') {
+  const parts = isostr.match(/\d+/g)
+  const timestamp =
+    new Date(
+      `${parts[0]}-${parts[1]}-${parts[2]} ${parts[3]}:${parts[4]}:${parts[5]}`
+    ).getTime() / 1000
+  return date(format, timestamp)
+}
 
 /**
  * 字符串填充

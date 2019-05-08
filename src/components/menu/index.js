@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-03-10 07:51:00
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-11 21:39:14
+ * @Last Modified time: 2019-03-12 22:16:39
  */
 import classNames from 'classnames'
 import Taro from '@tarojs/taro'
@@ -36,7 +36,7 @@ export default class Menu extends Component {
             {title.map((item, index) => (
               <Text
                 key={item}
-                className={classNames(`${cls}__title-item`, {
+                className={classNames(`${cls}__title-item flex flex-column`, {
                   'mt-xs': index > 0
                 })}
               >
@@ -48,7 +48,7 @@ export default class Menu extends Component {
         {data.map((item, index) => (
           <View
             key={item}
-            className={classNames(`${cls}__item`, {
+            className={classNames(`${cls}__item flex flex-column`, {
               [`${cls}__item--first`]: index === 0
             })}
             onClick={onClick.bind(this, index)}

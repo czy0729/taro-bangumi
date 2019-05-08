@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-28 07:08:33
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-08 11:03:56
+ * @Last Modified time: 2019-03-13 02:50:27
  */
 import classNames from 'classnames'
 import Taro from '@tarojs/taro'
@@ -29,35 +29,34 @@ export default class BlurBg extends Component {
     const { className, style, styles, theme, src } = this.props
 
     if (process.env.TARO_ENV === 'rn') {
-      if (theme)
-        return (
-          <View className={classNames(cls, className)} style={styles || style}>
-            {src && (
-              <ImageRN
-                src={src}
-                blurRadius={10}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                  left: 0
-                }}
-              />
-            )}
-            <View
+      return (
+        <View className={classNames(cls, className)} style={styles || style}>
+          {src && (
+            <ImageRN
+              src={src}
+              blurRadius={10}
               style={{
                 position: 'absolute',
                 top: 0,
                 right: 0,
                 bottom: 0,
-                left: 0,
-                backgroundColor: backgroundColor[theme]
+                left: 0
               }}
             />
-            {this.props.children}
-          </View>
-        )
+          )}
+          <View
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              backgroundColor: backgroundColor[theme]
+            }}
+          />
+          {this.props.children}
+        </View>
+      )
     }
 
     return (

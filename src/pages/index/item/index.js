@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-02-27 06:42:51
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-12 04:41:40
+ * @Last Modified time: 2019-03-13 01:29:41
  */
 import Taro from '@tarojs/taro'
 import { inject, observer } from '@tarojs/mobx'
@@ -44,30 +44,28 @@ export default class HomeItem extends Component {
       }
     })
   }
-  onItemClick = (a = {}, e) => {
-    const { id, sort, name, name_cn, airdate, comment } = a
-    const data = {
-      component: 'Menu',
-      props: {
+  onItemClick = (item = {}, evt) => {
+    const { id, sort, name, name_cn, airdate, comment } = item
+    uiStore.showPopover(
+      {
         title: [
           `ep.${sort} ${name || name_cn}`,
           `${airdate} 讨论数：${comment}`
         ],
         data: ['看过', '看到', '本集讨论'],
-        width: Taro.pxTransform(376),
-        onClick: index => {
+        width: Taro.pxTransform(378),
+        onClick: () => {
+          console.log(id)
           uiStore.hidePopover()
-          console.log(index)
         }
-      }
-    }
-    if (process.env.TARO_ENV === 'weapp') {
-      data.weapp = {
+      },
+      evt,
+      {
         offsetWidth: 28,
-        offsetHeight: 28
+        offsetHeight: 28,
+        showTabBar: true
       }
-    }
-    uiStore.showPopover(e, data, true)
+    )
   }
   toggleExpand = () => {
     const { subjectId } = this.props
@@ -120,6 +118,9 @@ export default class HomeItem extends Component {
       return
     }
     return this.eps[index].sort
+  }
+  onPress = (a, b, c) => {
+    console.log(a, b, c)
   }
   render() {
     const { subject, epStatus } = this.props

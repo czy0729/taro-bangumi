@@ -3,7 +3,7 @@
  * @Author: czy0729
  * @Date: 2019-02-21 20:40:30
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-09 18:00:54
+ * @Last Modified time: 2019-03-13 01:24:22
  */
 import { observable, computed } from 'mobx'
 import fetch from '@utils/fetch'
@@ -14,12 +14,12 @@ import common, { dev } from './common'
 class User extends common {
   @observable state = {
     userInfo: {
-      access_token: '486828fff084d92c5062661f0c9c86f88e0d8f3c',
+      access_token: '16d9bc759e04e62b99576589cd7bfff02f6327ef',
       expires_in: 604800,
       token_type: 'Bearer',
       scope: null,
       user_id: 456208,
-      refresh_token: '1d57ed8e5f3ab8c20d9687d8be1b7dd77a92b58a',
+      refresh_token: 'e087f362872ee0a2207ff0e3e6245d685e73faac',
       _loaded: true
     },
     userCollection: {},

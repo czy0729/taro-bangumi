@@ -2,20 +2,22 @@
  * @Author: czy0729
  * @Date: 2019-02-23 15:41:43
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-12 15:02:30
+ * @Last Modified time: 2019-03-12 15:50:50
  */
 import Taro from '@tarojs/taro'
-import { inject, observer } from '@tarojs/mobx'
+import { observer } from '@tarojs/mobx'
+import { View } from '@tarojs/components'
 import Component from '@common/component'
-import { Layout, Loading } from '@components'
+import { Loading } from '@components'
+import { userStore, subjectStore } from '@stores'
 import { sleep } from '@utils'
 import Login from './login'
 import List from './list'
+import Menu from './menu'
 import './index.scss'
 
 const cls = 'home'
 
-@inject('userStore', 'subjectStore')
 @observer
 export default class Home extends Component {
   config = {
@@ -25,7 +27,6 @@ export default class Home extends Component {
     loading: true
   }
   async componentDidMount() {
-    const { userStore, subjectStore } = this.props
     const { isLogin } = userStore
     if (isLogin) {
       const data = await Promise.all([
@@ -47,14 +48,13 @@ export default class Home extends Component {
     }
   }
   render() {
-    const {
-      userStore: { isLogin }
-    } = this.props
+    const { isLogin } = userStore
     const { loading } = this.state
     return (
-      <Layout className={cls}>
+      <View className={cls}>
         {isLogin ? loading ? <Loading /> : <List /> : <Login />}
-      </Layout>
+        <Menu />
+      </View>
     )
   }
 }

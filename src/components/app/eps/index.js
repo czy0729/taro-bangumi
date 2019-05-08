@@ -2,7 +2,7 @@
  * @Author: czy0729
  * @Date: 2019-03-03 00:19:51
  * @Last Modified by: czy0729
- * @Last Modified time: 2019-03-12 04:40:21
+ * @Last Modified time: 2019-03-13 00:48:12
  */
 import classNames from 'classnames'
 import Taro from '@tarojs/taro'
@@ -62,7 +62,7 @@ export default class AppEps extends Component {
             ghost
             size='mini'
             text={pad(item.sort)}
-            onClick={onClick}
+            onClick={onClick.bind(this, item)}
           />
         ))}
         {!!itemsSp.length && (
